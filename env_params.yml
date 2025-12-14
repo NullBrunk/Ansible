@@ -4,12 +4,18 @@
   connection: network_cli
 
   tasks:
-    - name: Show environment
+    - name: Show temperature
       cisco.ios.ios_command:
         commands:
-          - show env all
+          - show env | include Celsius|celsius
+      register: env_output
+
+    - name: Show fan status
+      cisco.ios.ios_command:
+        commands:
+          - show env | include System Fan|FAN
       register: env_output
 
     - name: Display environment info
       debug:
-        msg: "{{ env_output.stdout[0] | replace('\\n', '\n') }}"
+        msg: "{{ env_output.stdout[0] }}"
