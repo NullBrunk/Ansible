@@ -8,14 +8,19 @@
       cisco.ios.ios_command:
         commands:
           - sh env all | include Celsius|celsius
-      register: env_output
+      register: temp_output
 
     - name: Show fan status
       cisco.ios.ios_command:
         commands:
           - sh env all | include System Fan|FAN
-      register: env_output
+      register: fan_output
+
 
     - name: Display environment info
       debug:
-        msg: "{{ env_output.stdout[0] }}"
+        msg: "{{ print(temp_output.stdout[0]) }}"
+
+    - name: Display environment info
+      debug:
+        msg: "{{ print(fan_output.stdout[0]) }}"
