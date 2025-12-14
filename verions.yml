@@ -1,0 +1,15 @@
+- name: Cisco versions
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: Get temperature
+      cisco.ios.ios_command:
+        commands:
+          - sh ver | include Celsius|celsius
+      register: version
+
+    - name: Show fan status
+      debug:
+        msg: "{{ version.stdout[0] }}"

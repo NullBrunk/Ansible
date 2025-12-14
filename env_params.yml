@@ -1,4 +1,4 @@
-- name: Cisco router environment parameters
+- name: Cisco environment parameters
   hosts: cisco
   gather_facts: no
   connection: network_cli
@@ -15,7 +15,6 @@
         commands:
           - sh env all | include System Fan|FAN is
       register: fan_output
-
 
     - name: Show temperature
       debug:
