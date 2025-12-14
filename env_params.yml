@@ -25,15 +25,15 @@
     - name: Show temperature
       debug:
         msg:
-          temperature: temp_output.stdout[0]
+          temperature: "{{ temp_output.stdout[0] }}"
 
     - name: Show fan status
       debug:
         msg:
-          fan_status: fan_output.stdout[0]
+          fan_status: "{{ fan_output.stdout[0] }}"
 
 
     - name: Show fan status
       debug:
         msg:
-          uptime: uptime.stdout[0]
+          uptime: "{{ uptime.stdout[0] }}"

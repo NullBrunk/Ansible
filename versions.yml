@@ -26,14 +26,14 @@
     - name: Show versions
       debug:
         msg:
-          version: version.stdout[0]
+          version: "{{ version.stdout[0] }}"
 
     - name: Show memory
       debug:
         msg:
-          memory: memory.stdout[0]
+          memory: "{{ memory.stdout[0] }}"
 
     - name: Show interfaces
       debug:
         msg:
-          interfaces: interfaces.stdout[0] 
+          interfaces: "{{ interfaces.stdout[0] }}"
