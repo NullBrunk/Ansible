@@ -33,7 +33,7 @@
           fan_status: "{{ fan_output.stdout[0] }}"
 
 
-    - name: Show fan status
+    - name: Show uptime
       debug:
         msg:
           uptime: "{{ uptime.stdout[0] }}"
