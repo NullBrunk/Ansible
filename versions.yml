@@ -25,12 +25,15 @@
 
     - name: Show versions
       debug:
-        var: version.stdout[0]
+        msg:
+          version: version.stdout[0]
 
     - name: Show memory
       debug:
-        var: memory.stdout[0]
+        msg:
+          memory: memory.stdout[0]
 
     - name: Show interfaces
       debug:
-        var: interfaces.stdout[0] 
+        msg:
+          interfaces: interfaces.stdout[0] 

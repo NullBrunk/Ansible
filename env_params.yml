@@ -24,13 +24,16 @@
 
     - name: Show temperature
       debug:
-        var: temp_output.stdout[0]
+        msg:
+          temperature: temp_output.stdout[0]
 
     - name: Show fan status
       debug:
-        var: fan_output.stdout[0]
+        msg:
+          fan_status: fan_output.stdout[0]
 
 
     - name: Show fan status
       debug:
-        var: uptime.stdout[0]
+        msg:
+          uptime: uptime.stdout[0]
