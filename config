@@ -1,10 +1,10 @@
 Host 217.3.160.252
-    KexAlgorithms +diffie-hellman-group14-sha1
+    KexAlgorithms +diffie-hellman-group1-sha1
     HostKeyAlgorithms +ssh-rsa
     Ciphers +aes128-cbc
 
 Host 217.3.160.253
-    KexAlgorithms +diffie-hellman-group14-sha1
+    KexAlgorithms +diffie-hellman-group1-sha1
     HostKeyAlgorithms +ssh-rsa
     Ciphers +aes128-cbc
 
