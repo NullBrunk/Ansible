@@ -12,4 +12,4 @@
 
     - name: Display environment info
       debug:
-        msg: "{{ env_output.stdout[0] }}"
+        msg: "{{ env_output.stdout[0] | replace('\\n', '\n') }}"
