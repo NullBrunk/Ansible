@@ -18,3 +18,10 @@ Affichage des températures, ainsi que du FAN status (état des ventilos).
 ```
 ansible-playbook -i inventory.ini env_params.yml 2>/dev/null
 ```
+
+## Versions des équipements
+Affichage de la version des équipements
+
+```
+ansible-playbook -i inventory.ini versions.yml 2>/dev/null
+```

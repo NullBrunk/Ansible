@@ -4,12 +4,12 @@
   connection: network_cli
 
   tasks:
-    - name: Get temperature
+    - name: Get versions
       cisco.ios.ios_command:
         commands:
-          - sh ver | include Celsius|celsius
+          - sh ver
       register: version
 
-    - name: Show fan status
+    - name: Show versions
       debug:
         msg: "{{ version.stdout[0] }}"
