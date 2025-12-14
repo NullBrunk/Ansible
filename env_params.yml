@@ -13,7 +13,7 @@
     - name: Get fan status
       cisco.ios.ios_command:
         commands:
-          - sh env all | include System Fan
+          - sh env all | include System Fan|FAN is
       register: fan_output
 
 
