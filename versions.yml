@@ -7,9 +7,30 @@
     - name: Get versions
       cisco.ios.ios_command:
         commands:
-          - sh ver
+          - sh ver | include Version 1
       register: version
+
+    - name: Get memory
+      cisco.ios.ios_command:
+        commands:
+          - sh ver | include memory
+      register: memory
+
+    - name: Get interfaces
+      cisco.ios.ios_command:
+        commands:
+          - sh ver | include interfaces
+      register: interfaces
+
 
     - name: Show versions
       debug:
         msg: "{{ version.stdout[0] }}"
+
+    - name: Show memory
+      debug:
+        msg: "{{ memory.stdout[0] }}"
+
+    - name: Show interfaces
+      debug:
+        msg: "{{ interfaces.stdout[0] }}"

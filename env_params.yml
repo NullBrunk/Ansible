@@ -16,6 +16,12 @@
           - sh env all | include System Fan|FAN is
       register: fan_output
 
+    - name: Get uptime
+      cisco.ios.ios_command:
+        commands:
+          - sh ver | include uptime
+      register: uptime
+
     - name: Show temperature
       debug:
         msg: "{{ temp_output.stdout[0] }}"
@@ -23,3 +29,8 @@
     - name: Show fan status
       debug:
         msg: "{{ fan_output.stdout[0] }}"
+
+
+    - name: Show fan status
+      debug:
+        msg: "{{ uptime.stdout[0] }}"
