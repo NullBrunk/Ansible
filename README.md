@@ -11,3 +11,7 @@
 ```
 ansible all -i inventory.ini -m ping
 ```
+
+```
+ansible-playbook -i inventory.ini env_params.yml 2>/dev/null
+```
