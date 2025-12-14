@@ -24,13 +24,13 @@
 
     - name: Show temperature
       debug:
-        msg: "{{ temp_output.stdout[0] }}"
+        var: temp_output.stdout[0]
 
     - name: Show fan status
       debug:
-        msg: "{{ fan_output.stdout[0] }}"
+        var: fan_output.stdout[0]
 
 
     - name: Show fan status
       debug:
-        msg: "{{ uptime.stdout[0] }}"
+        var: uptime.stdout[0]

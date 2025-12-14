@@ -25,12 +25,12 @@
 
     - name: Show versions
       debug:
-        msg: "{{ version.stdout[0] }}"
+        var: version.stdout[0]
 
     - name: Show memory
       debug:
-        msg: "{{ memory.stdout[0] }}"
+        var: memory.stdout[0]
 
     - name: Show interfaces
       debug:
-        msg: "{{ interfaces.stdout[0] }}"
+        var: interfaces.stdout[0] 
