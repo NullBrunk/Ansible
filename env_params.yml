@@ -7,13 +7,13 @@
     - name: Show temperature
       cisco.ios.ios_command:
         commands:
-          - show env | include Celsius|celsius
+          - sh env all | include Celsius|celsius
       register: env_output
 
     - name: Show fan status
       cisco.ios.ios_command:
         commands:
-          - show env | include System Fan|FAN
+          - sh env all | include System Fan|FAN
       register: env_output
 
     - name: Display environment info
