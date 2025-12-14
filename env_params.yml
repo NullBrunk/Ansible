@@ -7,9 +7,9 @@
     - name: Show environment
       cisco.ios.ios_command:
         commands:
-          - show environment all
+          - show env all
       register: env_output
 
     - name: Display environment info
       debug:
-        var: env_output.stdout[0]
+        msg: env_output.stdout[0]
