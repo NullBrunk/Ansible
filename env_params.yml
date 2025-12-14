@@ -19,8 +19,8 @@
 
     - name: Display environment info
       debug:
-        msg: "{{ print(temp_output.stdout[0]) }}"
+        msg: "{{ temp_output.stdout[0] }}"
 
     - name: Display environment info
       debug:
-        msg: "{{ print(fan_output.stdout[0]) }}"
+        msg: "{{ fan_output.stdout[0] }}"
