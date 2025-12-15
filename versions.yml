@@ -10,30 +10,19 @@
           - sh ver | include Version 1
       register: version
 
-    - name: Get memory
+    - name: Get license
       cisco.ios.ios_command:
         commands:
-          - sh ver | include memory
-      register: memory
-
-    - name: Get interfaces
-      cisco.ios.ios_command:
-        commands:
-          - sh ver | include interfaces
-      register: interfaces
-
+          - sh ver | include \*
+      register: license
 
     - name: Show versions
       debug:
         msg:
           version: "{{ version.stdout[0] }}"
 
-    - name: Show memory
-      debug:
-        msg:
-          memory: "{{ memory.stdout[0] }}"
 
-    - name: Show interfaces
+    - name: Show license
       debug:
         msg:
-          interfaces: "{{ interfaces.stdout[0] }}"
+          license: "{{ license.stdout[0] }}"
