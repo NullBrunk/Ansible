@@ -9,6 +9,7 @@
   tasks:
     - name: Get temperature
       cisco.ios.ios_command:
+        commands:
         - command: "copy running-config tftp:"
           prompt: "Address or name of remote host"
           answer: "{{ tftp_server }}"
