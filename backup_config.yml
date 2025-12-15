@@ -4,14 +4,15 @@
   connection: network_cli
 
   vars:
-    tftp_server: 217.3.160.100/24
+    tftp_server: 217.3.160.100
 
   tasks:
-    - name: Get temperature
+    - name: Backup running-config to TFTP 
       cisco.ios.ios_command:
         commands:
         - command: "copy running-config tftp:"
           prompt: "Address or name of remote host"
           answer: "{{ tftp_server }}"
-        - prompt: "Destination filename"
+        - command: ""
+          prompt: "Destination filename"
           answer: "{{ inventory_hostname }}.cfg"
