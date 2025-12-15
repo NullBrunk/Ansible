@@ -1,0 +1,16 @@
+- name: Cisco interface status
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: Get up status
+      cisco.ios.ios_command:
+        commands:
+          - sh ip int br | include up
+      register: temp_output
+
+    - name: Show up interfaces
+      debug:
+        msg:
+          interfaces: "{{ temp_output.stdout[0] }}"
