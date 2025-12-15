@@ -10,12 +10,12 @@
     - name: Backup running-config to TFTP 
       cisco.ios.ios_command:
         commands:
-        - command: "copy running-config tftp:"
-          prompt: "Address or name of remote host.*"
-          answer: "{{ tftp_server }}"
+        - command: "copy running-config tftp://{{ tftp_server }}/{{inventory_hostname}}.cfg"
+          prompt: "Address or name of remote host [217.3.160.100]? "
+          answer: ""
         - command: ""
-          prompt: "Destination filename.*"
-          answer: "{{ inventory_hostname }}.cfg"
+          prompt: "Destination filename [{{inventory_hostname}}.cfg]? "
+          answer: ""
       register: output
 
     - name: Show output
