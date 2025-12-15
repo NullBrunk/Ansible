@@ -16,3 +16,11 @@
         - command: ""
           prompt: "Destination filename"
           answer: "{{ inventory_hostname }}.cfg"
+      register: output
+
+    - name: Show output
+      debug:
+        msg:
+          version: "{{ output.stdout[0] }}"
+
+
