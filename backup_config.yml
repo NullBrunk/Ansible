@@ -11,10 +11,10 @@
       cisco.ios.ios_command:
         commands:
         - command: "copy running-config tftp:"
-          prompt: "Address or name of remote host"
+          prompt: "Address or name of remote host.*"
           answer: "{{ tftp_server }}"
         - command: ""
-          prompt: "Destination filename"
+          prompt: "Destination filename.*"
           answer: "{{ inventory_hostname }}.cfg"
       register: output
 
