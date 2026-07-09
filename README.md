@@ -5,8 +5,8 @@ Collection de playbook ansible pour la configuration des EC2 pour le projet Mond
 | Playbook             | Utilité          | 
 | :--------------------| :--------------- | 
 | ``install_ssh_keys`` | Installe les clés SSH de l'équipe IT sur le host |
-| `rename_user`        | Renomme l'utilisateur admin par défaut (**admin**) en **mondecole** | 
-| `ddns`               | Implémente le service DDNS pour le host _(map ip publique aws a hostname.mondecole.com)_ | 
+| `rename_user`        | Renomme l'utilisateur admin par défaut (**example**) en **admin** | 
+| `ddns`               | Implémente le service DDNS pour le host _(map ip publique aws a hostname.dev)_ | 
 | `docker_install`     | Installe les repos et le runtime **Docker** |
 
 
@@ -29,11 +29,11 @@ ansible-playbook -i inventory.ini -l [TARGET_NAME] install_ssh_keys.yml.yml
 ansible-playbook -i inventory.ini -l [TARGET_NAME] rename_user.yml
 ```
 
-Par défaut le user source est `admin`, et le user destination `mondecole`. Vous pouvez changer ce comportement en 
+Par défaut le user source est `example`, et le user destination `admin`. Vous pouvez changer ce comportement en 
 utilisant l'option `-e` et en écrasant les variables suivantes:
 
-- **old_user** `(default: admin)`
-- **new_user** `(default: mondecole)`
+- **old_user** `(default: example)`
+- **new_user** `(default: admin)`
 - **ansible_user** `(default: admin, user utilisé pour la connexion SSH)`
 
 
