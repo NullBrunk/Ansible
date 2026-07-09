@@ -1,0 +1,50 @@
+- name: Rename admin user
+  hosts: ec2
+  become_method: sudo
+  become: true
+  gather_facts: no
+
+  vars:
+    old_user: random
+    new_user: admin
+
+    new_passwd: /tmp/new_passwd
+    new_group: /tmp/new_group
+    new_sudoers: /tmp/new_sudoers
+    new_shadow: /tmp/new_shadow
+
+    sudoers_path: /etc/sudoers.d/90-cloud-init-users
+    passwd_path: /etc/passwd
+    group_path: /etc/group
+    shadow_path: /etc/shadow
+
+    ansible_user: admin
+
+  tasks:
+    - name: Clean
+      shell: rm -rf {{ new_passwd }} && rm -rf {{ new_sudoers }}
+
+    - name: Create new {{ passwd_path }}
+      shell: cat {{ passwd_path }} | sed "s/{{ old_user }}:/{{ new_user }}:/" | sed "s/home\\/{{ old_user }}/home\\/{{ new_user }}/" | sed "s/Debian/{{ new_user | capitalize }}/" > {{ new_passwd }}
+
+    - name: Create new {{ sudoers_path }}
+      shell: sed "s/{{ old_user }}/{{ new_user }}/" {{ sudoers_path }} > {{ new_sudoers }}
+
+    - name: Create new {{ group_path }}
+      shell: sed "s/{{ old_user }}:/{{ new_user }}:/" {{ group_path }} > {{ new_group }}
+
+    - name: Create new {{ shadow_path }}
+      shell: sed "s/{{ old_user }}:/{{ new_user }}:/" {{ shadow_path }} > {{ new_shadow }}
+
+    - name: Update {{ shadow_path }} and {{ shadow_path }}
+      ignore_errors: yes
+      ignore_unreachable: yes
+      shell: |
+        mv {{ new_sudoers }} {{ sudoers_path }} 
+        mv {{ new_passwd }} {{ passwd_path }} 
+        mv {{ new_group }} {{ group_path }}
+        mv {{ new_shadow }} {{ shadow_path }}
+        chmod 440 {{ sudoers_path }}
+        chown root:shadow {{ shadow_path }}
+        chmod 640 {{ shadow_path }} 
+        mv /home/{{ old_user }} /home/{{ new_user }}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Update DNS record on boot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/update-dns.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

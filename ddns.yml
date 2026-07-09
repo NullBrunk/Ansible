@@ -1,0 +1,44 @@
+- name: Upload DDNS
+  hosts: servers
+  become_method: sudo
+  become: true
+  gather_facts: no
+
+  vars:
+    src_service: "{{ playbook_dir }}/files/update-dns.service"
+    dst_service: "/etc/systemd/system/update-dns.service"
+
+    src_script: "update-dns.sh.j2"
+    dst_script: "/opt/update-dns.sh"
+
+    src_tsig: "{{ playbook_dir }}/files/tsig.key"
+    dst_tsig: "/opt/tsig.key"
+
+  tasks:
+    - name: Deploy DDNS systemd service
+      copy:
+        src: "{{ src_service }}"
+        dest: "{{ dst_service }}"
+
+    - name: Deploy DDNS update tsig key
+      copy:
+        src: "{{ src_tsig }}"
+        dest: "{{ dst_tsig }}"
+
+
+    - name: Deploy DDNS shell script
+      template:
+        src: "{{ src_script }}"
+        dest: "{{ dst_script }}"
+        mode: '0755'
+
+    - name: Install dependencies (bind9-dnsutils)
+      apt:
+        name: bind9-dnsutils
+        update_cache: yes
+
+    - name: Reload systemd services
+      shell: systemctl daemon-reload
+
+    - name: Enable the update-dns service
+      shell: systemctl enable --now update-dns.service
