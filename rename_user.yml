@@ -1,12 +1,18 @@
+# Usage:
+#   ansible-playbook -i inventory.ini rename_user.yml -e target=<server> \
+#     [-e old_username=<current name>] [-e new_username=<new name>]
+#
+# Runs on a single server only: "target" must match exactly one host.
+
 - name: Rename admin user
-  hosts: ec2
+  hosts: "{{ target }}"
   become_method: sudo
   become: true
   gather_facts: no
 
   vars:
-    old_user: random
-    new_user: admin
+    old_username: CHANGE_THIS
+    new_username: CHANGE_THIS
 
     new_passwd: /tmp/new_passwd
     new_group: /tmp/new_group
@@ -20,21 +26,30 @@
 
     ansible_user: admin
 
+  pre_tasks:
+    - name: Make sure exactly one server is targeted
+      assert:
+        that: ansible_play_hosts_all | length == 1
+        fail_msg: >-
+          rename_user must target a single server, but '{{ target }}' matches
+          {{ ansible_play_hosts_all | length }} hosts. Use -e target=<server name>.
+      run_once: true
+      
   tasks:
     - name: Clean
       shell: rm -rf {{ new_passwd }} && rm -rf {{ new_sudoers }}
 
     - name: Create new {{ passwd_path }}
-      shell: cat {{ passwd_path }} | sed "s/{{ old_user }}:/{{ new_user }}:/" | sed "s/home\\/{{ old_user }}/home\\/{{ new_user }}/" | sed "s/Debian/{{ new_user | capitalize }}/" > {{ new_passwd }}
+      shell: cat {{ passwd_path }} | sed "s/{{ old_username }}:/{{ new_username }}:/" | sed "s/home\\/{{ old_username }}/home\\/{{ new_username }}/" | sed "s/Debian/{{ new_username | capitalize }}/" > {{ new_passwd }}
 
     - name: Create new {{ sudoers_path }}
-      shell: sed "s/{{ old_user }}/{{ new_user }}/" {{ sudoers_path }} > {{ new_sudoers }}
+      shell: sed "s/{{ old_username }}/{{ new_username }}/" {{ sudoers_path }} > {{ new_sudoers }}
 
     - name: Create new {{ group_path }}
-      shell: sed "s/{{ old_user }}:/{{ new_user }}:/" {{ group_path }} > {{ new_group }}
+      shell: sed "s/{{ old_username }}:/{{ new_username }}:/" {{ group_path }} > {{ new_group }}
 
     - name: Create new {{ shadow_path }}
-      shell: sed "s/{{ old_user }}:/{{ new_user }}:/" {{ shadow_path }} > {{ new_shadow }}
+      shell: sed "s/{{ old_username }}:/{{ new_username }}:/" {{ shadow_path }} > {{ new_shadow }}
 
     - name: Update {{ shadow_path }} and {{ shadow_path }}
       ignore_errors: yes
@@ -47,4 +62,4 @@
         chmod 440 {{ sudoers_path }}
         chown root:shadow {{ shadow_path }}
         chmod 640 {{ shadow_path }} 
-        mv /home/{{ old_user }} /home/{{ new_user }}
+        mv /home/{{ old_username }} /home/{{ new_username }}
