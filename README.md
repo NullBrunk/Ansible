@@ -20,7 +20,7 @@ Originally written during my junior DevOps internship, then made generic so it c
 | Playbook | In short | Target |
 | :-- | :-- | :-- |
 | [`install_ssh_keys`](install_ssh_keys.yml) | Gives your team access to the servers | `servers` |
-| [`rename_user`](rename_user.yml) | Creates the same admin account everywhere | `aws ec2` |
+| [`rename_user`](rename_user.yml) | Creates the same admin account everywhere | one server (`-e target=...`) |
 | [`ddns`](ddns.yml) | Gives each server a name that never changes | `servers` |
 | [`docker_install`](docker_install.yml) | Installs Docker and Docker Compose | `servers` |
 
@@ -38,12 +38,10 @@ server-1   ansible_host=<public-ip-or-hostname>
 server-2   ansible_host=<public-ip-or-hostname>
 
 [servers:vars]
-ansible_user=admin
+ansible_user=root
 ansible_ssh_private_key_file=~/.ssh/id_rsa.pem
 ansible_python_interpreter=/usr/bin/python3
 ```
-
-> `rename_user` targets the `ec2` group, which has to be declared in the inventory as well.
 
 Every playbook runs the same way. `-l` limits the run to one host (or group); without it, the playbook runs on all of its targets:
 
@@ -59,7 +57,7 @@ ansible-playbook -i inventory.ini -l server-1 <playbook>.yml
 
 <img src="docs/install-ssh-keys.svg" alt="A list of access keys is copied by Ansible to every server, so everyone on the list can log in" width="100%">
 
-Installs the SSH public keys listed in [`files/authorized_keys`](files/authorized_keys) as the `authorized_keys` of the `admin` user on each host. To give someone access, add their public key to that file and run the playbook again.
+Installs the SSH public keys listed in [`files/authorized_keys`](files/authorized_keys) as the `authorized_keys` of the `ansible_user` user (declared in the inventory, root by default) on each host. To give someone access, add their public key to that file and run the playbook again.
 
 ```bash
 ansible-playbook -i inventory.ini -l server-1 install_ssh_keys.yml
@@ -75,19 +73,21 @@ ansible-playbook -i inventory.ini -l server-1 install_ssh_keys.yml
 
 <img src="docs/rename-user.svg" alt="Servers with different admin names (ec2-user, ubuntu, debian) all end up with the same admin name, in three steps: prepare, swap, move the files" width="100%">
 
-Renames a Linux user: you give it the current username and the one you want, and it does the rest. This is handy on AWS, where the default user depends on the AMI (`ec2-user`, `admin`, `ubuntu`...). Running it on every instance gives the whole fleet one common admin user, so the inventory and the other playbooks work everywhere without special cases.
+Renames a Linux user: you give it the current username and the one you want, and it does the rest. This is handy on AWS, where the default admin user depends on the AMI (`ec2-user`, `admin`, `ubuntu`...). Running it on every instance gives the whole fleet one common admin user, so the inventory and the other playbooks work everywhere without special cases.
+
+It targets **a single server**, never a group: renaming system users is delicate, so the playbook refuses to run if `target` matches more than one host.
 
 Under the hood it edits copies of `/etc/passwd`, `/etc/group`, `/etc/shadow` and the sudoers file, replaces the originals with the right permissions, then moves the home directory.
 
 | Variable | Default | Description |
 | :-- | :-- | :-- |
-| `old_user` | `random` | Current username, to rename |
-| `new_user` | `admin` | New username |
-| `ansible_user` | `admin` | User of the SSH connection |
+| `old_username` | `CHANGE_THIS` | Current username, to rename |
+| `new_username` | `CHANGE_THIS` | New username |
+| `ansible_user` | `root` | User of the SSH connection |
 
 ```bash
-ansible-playbook -i inventory.ini -l server-1 rename_user.yml \
-  -e old_user=ec2-user -e new_user=admin
+ansible-playbook -i inventory.ini rename_user.yml \
+  -e target=server-1 -e old_username=ec2-user -e new_username=admin
 ```
 
 ---
@@ -103,7 +103,7 @@ The public IP of an EC2 instance changes every time it starts, which breaks clas
 The playbook deploys:
 
 - a [systemd service](files/update-dns.service) that runs once at boot, after the network is up
-- a [bash script](templates/update-dns.sh.j2), rendered from a Jinja2 template with the host's name, that reads the public IP from the EC2 metadata service (IMDSv2) and sends the update with `nsupdate`
+- a [bash script](templates/update-dns.sh.j2) that reads the public IP from the EC2 metadata service (IMDSv2) and sends the update with `nsupdate`
 - the [TSIG key](files/tsig.key) that authorizes the update
 - `bind9-dnsutils`, which provides `nsupdate`
 
@@ -121,7 +121,7 @@ ansible-playbook -i inventory.ini -l server-1 ddns.yml
 
 <img src="docs/docker-install.svg" alt="Three steps: add Docker's official source, install Docker, allow the admin user to use it" width="100%">
 
-Docker is needed on every server, so this playbook sets it up from scratch: the official apt repository, Docker Engine (`docker-ce`, `docker-ce-cli`, `containerd.io`) and the `buildx` and `compose` plugins. It then adds the SSH user to the `docker` group, which takes effect at the next SSH login.
+Docker was needed on every server during my internship, so this playbook sets it up from scratch: the official apt repository, Docker Engine (`docker-ce`, `docker-ce-cli`, `containerd.io`) and the `buildx` and `compose` plugins. It then adds the SSH user to the `docker` group, which takes effect at the next SSH login.
 
 It targets Debian hosts.
 
