@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 420" width="1040" height="420" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title>Overview: you run a playbook from your computer, and your cloud servers get set up</title>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#64748B"/>
+    </marker>
+    <g id="i-key" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="-7" cy="0" r="6"/><path d="M-1 0H12M8 0V5M12 0V5"/>
+    </g>
+    <g id="i-person" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="-5" r="5"/><path d="M-10 12a10 10 0 0 1 20 0"/>
+    </g>
+    <g id="i-book" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-10" y="-12" width="20" height="24" rx="2"/><path d="M-5 -5H5M-5 0H5M-5 5H1"/>
+    </g>
+    <g id="i-box" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 -12L11 -6V6L0 12L-11 6V-6ZM0 0V12M0 0L-11 -6M0 0L11 -6"/>
+    </g>
+    <g id="i-laptop" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-13" y="-10" width="26" height="17" rx="2"/><path d="M-17 11H17"/>
+    </g>
+    <g id="i-server">
+      <rect x="-12" y="-11" width="24" height="6" rx="1.5"/><rect x="-12" y="-3" width="24" height="6" rx="1.5"/><rect x="-12" y="5" width="24" height="6" rx="1.5"/>
+    </g>
+  </defs>
+
+  <rect width="1040" height="420" rx="18" fill="#F8FAFC"/>
+
+  <!-- You -->
+  <rect x="30" y="30" width="220" height="360" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <circle cx="140" cy="140" r="52" fill="#EFF6FF"/>
+  <use xlink:href="#i-laptop" transform="translate(140,140) scale(2.4)" stroke="#2563EB" stroke-width="1.1"/>
+  <text x="140" y="226" text-anchor="middle" font-size="20" font-weight="700" fill="#0F172A">You</text>
+  <text x="140" y="252" text-anchor="middle" font-size="12.5" fill="#64748B">Run one command</text>
+  <text x="140" y="270" text-anchor="middle" font-size="12.5" fill="#64748B">from your computer</text>
+  <circle cx="108" cy="338" r="11" fill="#EE0000"/>
+  <text x="108" y="343" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">A</text>
+  <text x="126" y="343" font-size="12" fill="#64748B">Powered by Ansible</text>
+
+  <!-- Arrows -->
+  <path d="M254 210H284" stroke="#64748B" stroke-width="2.5" fill="none"/>
+  <g stroke="#64748B" stroke-width="2" fill="none">
+    <path d="M284 86V332"/>
+    <path d="M284 86H292" marker-end="url(#ab)"/>
+    <path d="M284 168H292" marker-end="url(#ab)"/>
+    <path d="M284 250H292" marker-end="url(#ab)"/>
+    <path d="M284 332H292" marker-end="url(#ab)"/>
+    <path d="M740 86H756V332H740"/>
+    <path d="M756 210H786" marker-end="url(#ab)"/>
+  </g>
+
+  <!-- Playbooks -->
+  <g>
+    <rect x="300" y="50" width="440" height="72" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="338" cy="86" r="22" fill="#2563EB"/>
+    <use xlink:href="#i-key" transform="translate(338,86)" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="374" y="80" font-size="13.5" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#1D4ED8">install_ssh_keys</text>
+    <text x="374" y="102" font-size="12.5" fill="#475569">Gives your team access to the servers</text>
+
+    <rect x="300" y="132" width="440" height="72" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="338" cy="168" r="22" fill="#7C3AED"/>
+    <use xlink:href="#i-person" transform="translate(338,168)" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="374" y="162" font-size="13.5" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#6D28D9">rename_user</text>
+    <text x="374" y="184" font-size="12.5" fill="#475569">Creates the same admin account everywhere</text>
+
+    <rect x="300" y="214" width="440" height="72" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="338" cy="250" r="22" fill="#16A34A"/>
+    <use xlink:href="#i-book" transform="translate(338,250)" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="374" y="244" font-size="13.5" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#15803D">ddns</text>
+    <text x="374" y="266" font-size="12.5" fill="#475569">Gives each server a name that never changes</text>
+
+    <rect x="300" y="296" width="440" height="72" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="338" cy="332" r="22" fill="#EA580C"/>
+    <use xlink:href="#i-box" transform="translate(338,332)" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="374" y="326" font-size="13.5" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#C2410C">docker_install</text>
+    <text x="374" y="348" font-size="12.5" fill="#475569">Installs the tools to run your apps</text>
+  </g>
+
+  <!-- Servers -->
+  <rect x="790" y="30" width="220" height="360" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="810" y="62" font-size="16" font-weight="700" fill="#0F172A">Your servers</text>
+  <text x="810" y="80" font-size="11" fill="#64748B">Cloud servers (AWS EC2)</text>
+  <g>
+    <rect x="810" y="100" width="180" height="64" rx="10" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <use xlink:href="#i-server" transform="translate(848,132) scale(1.3)" fill="#94A3B8"/>
+    <text x="880" y="137" font-size="13" font-weight="600" fill="#0F172A">Server A</text>
+    <rect x="810" y="176" width="180" height="64" rx="10" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <use xlink:href="#i-server" transform="translate(848,208) scale(1.3)" fill="#94A3B8"/>
+    <text x="880" y="213" font-size="13" font-weight="600" fill="#0F172A">Server B</text>
+    <rect x="810" y="252" width="180" height="64" rx="10" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <use xlink:href="#i-server" transform="translate(848,284) scale(1.3)" fill="#94A3B8"/>
+    <text x="880" y="289" font-size="13" font-weight="600" fill="#0F172A">Server C</text>
+  </g>
+  <rect x="810" y="334" width="180" height="40" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="900" y="359" text-anchor="middle" font-size="12.5" font-weight="600" fill="#166534">Same setup on every server</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1020 410" width="1020" height="410" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title>rename_user: every server ends up with the same admin account name</title>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#64748B"/>
+    </marker>
+    <g id="i-server">
+      <rect x="-12" y="-11" width="24" height="6" rx="1.5"/><rect x="-12" y="-3" width="24" height="6" rx="1.5"/><rect x="-12" y="5" width="24" height="6" rx="1.5"/>
+    </g>
+  </defs>
+
+  <rect width="1020" height="410" rx="18" fill="#F8FAFC"/>
+
+  <!-- Before -->
+  <rect x="30" y="30" width="440" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="48" y="56" font-size="11" font-weight="700" letter-spacing="1" fill="#64748B">BEFORE · A DIFFERENT ADMIN NAME ON EACH SERVER</text>
+  <g>
+    <rect x="48" y="72" width="124" height="86" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <use xlink:href="#i-server" transform="translate(110,96)" fill="#F87171"/>
+    <text x="110" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#B91C1C">ec2-user</text>
+    <text x="110" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server A</text>
+
+    <rect x="184" y="72" width="124" height="86" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <use xlink:href="#i-server" transform="translate(246,96)" fill="#F87171"/>
+    <text x="246" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#B91C1C">ubuntu</text>
+    <text x="246" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server B</text>
+
+    <rect x="320" y="72" width="124" height="86" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <use xlink:href="#i-server" transform="translate(382,96)" fill="#F87171"/>
+    <text x="382" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#B91C1C">debian</text>
+    <text x="382" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server C</text>
+  </g>
+
+  <path d="M474 112H546" stroke="#64748B" stroke-width="2.5" fill="none" marker-end="url(#ab)"/>
+  <text x="510" y="102" text-anchor="middle" font-size="10" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#475569">rename_user</text>
+
+  <!-- After -->
+  <rect x="550" y="30" width="440" height="150" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="568" y="56" font-size="11" font-weight="700" letter-spacing="1" fill="#64748B">AFTER · THE SAME ADMIN NAME EVERYWHERE</text>
+  <g>
+    <rect x="568" y="72" width="124" height="86" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+    <use xlink:href="#i-server" transform="translate(630,96)" fill="#4ADE80"/>
+    <text x="630" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#166534">admin</text>
+    <text x="630" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server A</text>
+
+    <rect x="704" y="72" width="124" height="86" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+    <use xlink:href="#i-server" transform="translate(766,96)" fill="#4ADE80"/>
+    <text x="766" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#166534">admin</text>
+    <text x="766" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server B</text>
+
+    <rect x="840" y="72" width="124" height="86" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+    <use xlink:href="#i-server" transform="translate(902,96)" fill="#4ADE80"/>
+    <text x="902" y="132" text-anchor="middle" font-size="13" font-weight="700" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" fill="#166534">admin</text>
+    <text x="902" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">Server C</text>
+  </g>
+
+  <!-- How -->
+  <text x="30" y="212" font-size="11" font-weight="700" letter-spacing="1" fill="#64748B">HOW IT WORKS, ON EACH SERVER</text>
+  <g>
+    <rect x="30" y="224" width="300" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="58" cy="252" r="14" fill="#2563EB"/>
+    <text x="58" y="257.5" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">1</text>
+    <text x="80" y="257" font-size="14" font-weight="700" fill="#0F172A">Prepare</text>
+    <text x="48" y="288" font-size="12" fill="#475569">Builds the account details with the new</text>
+    <text x="48" y="306" font-size="12" fill="#475569">name, leaving the originals untouched.</text>
+
+    <rect x="360" y="224" width="300" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="388" cy="252" r="14" fill="#2563EB"/>
+    <text x="388" y="257.5" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">2</text>
+    <text x="410" y="257" font-size="14" font-weight="700" fill="#0F172A">Swap</text>
+    <text x="378" y="288" font-size="12" fill="#475569">Replaces the old details with the new</text>
+    <text x="378" y="306" font-size="12" fill="#475569">ones and keeps security settings intact.</text>
+
+    <rect x="690" y="224" width="300" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="718" cy="252" r="14" fill="#2563EB"/>
+    <text x="718" y="257.5" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">3</text>
+    <text x="740" y="257" font-size="14" font-weight="700" fill="#0F172A">Move the files</text>
+    <text x="708" y="288" font-size="12" fill="#475569">The account's personal folder follows it</text>
+    <text x="708" y="306" font-size="12" fill="#475569">to its new name.</text>
+  </g>
+  <g stroke="#64748B" stroke-width="2.5" fill="none">
+    <path d="M334 274H356" marker-end="url(#ab)"/>
+    <path d="M664 274H686" marker-end="url(#ab)"/>
+  </g>
+
+  <rect x="30" y="346" width="960" height="46" rx="12" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="510" y="374" text-anchor="middle" font-size="13" fill="#1E3A8A"><tspan font-weight="700">You only provide two things:</tspan> the current name and the new name. The playbook does the rest.</text>
+</svg>
