@@ -20,7 +20,7 @@ Originally written during my junior DevOps internship, then made generic so it c
 | Playbook | In short | Target |
 | :-- | :-- | :-- |
 | [`install_ssh_keys`](install_ssh_keys.yml) | Gives your team access to the servers | `servers` |
-| [`rename_user`](rename_user.yml) | Creates the same admin account everywhere | `ec2` |
+| [`rename_user`](rename_user.yml) | Creates the same admin account everywhere | `aws ec2` |
 | [`ddns`](ddns.yml) | Gives each server a name that never changes | `servers` |
 | [`docker_install`](docker_install.yml) | Installs Docker and Docker Compose | `servers` |
 
