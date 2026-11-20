@@ -1,9 +1,13 @@
-# Ansible · EC2 provisioning playbooks
+<div align="center">
+
+  # Ansible · EC2 provisioning playbooks
 
 ![Ansible](https://img.shields.io/badge/Ansible-EE0000?logo=ansible&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-A81D33?logo=debian&logoColor=white)
 ![AWS EC2](https://img.shields.io/badge/AWS-EC2-FF9900?logo=amazonaws&logoColor=white)
 
+</div>
+  
 Ready-to-use Ansible playbooks to set up **any AWS EC2 instance**: give your team access, create a common admin user, get a stable internal name, and install Docker. Each playbook solves one problem and runs the same way on every server.
 
 Originally written during my junior DevOps internship, then made generic so it can be reused on any project.
